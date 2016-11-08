@@ -3,7 +3,7 @@ const { shallow } = require('enzyme');
 const sinon = require('sinon');
 const Board = require('../components/Board');
 const Field = require('../components/Field');
-
+ 
 describe('<Board />', function () {
   it('should have .board class', function () {
     const wrapper = shallow(<Board board={[]} onClick={Function.prototype} />);

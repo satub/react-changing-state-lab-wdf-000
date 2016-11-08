@@ -26,7 +26,9 @@ class Game extends React.Component {
 
   render () {
     return (
-      <div>
+      <div className = "game">
+        <Board />
+        <Status />
       </div>
     );
   }

@@ -4,8 +4,12 @@ class Field extends React.Component {
   render () {
     const { player, onClick } = this.props;
     return (
-      <button>
-      </button>
+      <div className = "field">
+        {player}
+        <button onClick = {onClick}>
+
+        </button>
+      </div>
     );
   }
 }
