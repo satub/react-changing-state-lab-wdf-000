@@ -13,6 +13,8 @@ class Game extends React.Component {
 
     this.handleReset = this.handleReset.bind(this);
     this.handleClick = this.handleClick.bind(this);
+
+    this.handleTest = this.handleTest.bind(this);
   }
 
   handleReset (ev) {
@@ -23,24 +25,54 @@ class Game extends React.Component {
     })
   }
 
+  handleTest (ev) {
+    ev.preventDefault();
+    this.setState({
+      board: ['X','O','X','O','X','X','O','X','X'],
+      turn: 'O'
+    })
+  }
+
   handleClick (i, ev) {
   }
 
   getWinner () {
-    return undefined;
+    let winner;
+    let re;
+    let xs = [];
+    let os = [];
+    this.state.board.filter(function(cell, index){
+      if (cell === 'X'){
+        xs.push(index);
+      }
+    });
+    this.state.board.filter(function(cell, index){
+      if (cell === 'O'){
+        os.push(index);
+      }
+    });
+    solutions.forEach(function(solution){
+      re = new RegExp(solution.join('\\d*'))
+      if (xs.join('').match(re)){
+        winner = 'X';
+      } else if (os.join('').match(re)){
+        winner = 'O';
+      } 
+    });
+
+    return winner;
   }
 
   isComplete () {
   }
 
   render () {
-    let winner = this.getWinner();
+    let won = this.getWinner();
 
     return (
       <div className = "game">
-        // <Board board={[null,null,null,null,null,null,null,null,null]}/>
-        <Board />
-        {winner ? <Status winner={winner}/> : ''}
+        <Board board={this.state.board} />
+        {won ? <Status winner={won} /> : ''}
         <button className = "game__reset" onClick={this.handleReset}>Reset</button>
       </div>
     );
