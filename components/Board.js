@@ -11,7 +11,7 @@ class Board extends React.Component {
       <div className = "board">
         {
           board.map((cell, pfft) =>
-            <Field key={pfft} player={cell} onClick={onClick.bind(null, pfft)}/>
+            <Field key={pfft} ind={pfft + 1} player={cell} onClick={onClick.bind(null, pfft)}/>
           )
         }
       </div>
