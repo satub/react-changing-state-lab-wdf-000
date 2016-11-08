@@ -5,11 +5,13 @@ class Board extends React.Component {
 
   render () {
     const { board, onClick } = this.props;
+
+
     return (
       <div className = "board">
         {
-          this.props.board.map((cell) =>
-            <Field player={cell} onClick={this.props.onClick}/>
+          board.map((cell, pfft) =>
+            <Field key={pfft} player={cell} onClick={onClick.bind(null, pfft)}/>
           )
         }
       </div>

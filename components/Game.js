@@ -28,12 +28,23 @@ class Game extends React.Component {
   handleTest (ev) {
     ev.preventDefault();
     this.setState({
-      board: ['X','O','X','O','X','X','O','X','X'],
+      board: ['X','O','X','O','O','X','O','X','O'],
       turn: 'O'
     })
   }
 
   handleClick (i, ev) {
+    ev.preventDefault();
+    // debugger;
+    let nextTurn;
+    let currentTurn = this.state.turn;
+    let changingBoard = this.state.board
+    changingBoard[i] = currentTurn;
+    currentTurn === "X" ? nextTurn = "O" : nextTurn = "X";
+    this.setState({
+      board: changingBoard,
+      turn: nextTurn
+    });
   }
 
   getWinner () {
@@ -57,22 +68,22 @@ class Game extends React.Component {
         winner = 'X';
       } else if (os.join('').match(re)){
         winner = 'O';
-      } 
+      }
     });
 
     return winner;
   }
 
   isComplete () {
+   return this.state.board.every(cell => cell);
   }
 
   render () {
     let won = this.getWinner();
-
     return (
       <div className = "game">
-        <Board board={this.state.board} />
-        {won ? <Status winner={won} /> : ''}
+        <Board board={this.state.board} onClick = {this.handleClick}/>
+        {won || this.isComplete() ? <Status winner={won} /> : ''}
         <button className = "game__reset" onClick={this.handleReset}>Reset</button>
       </div>
     );
